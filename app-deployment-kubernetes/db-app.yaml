@@ -26,7 +26,7 @@ spec:
       volumes:
         - name: postgres-init
           hostPath:
-            path: ./postgres_service/initdb
+            path: /Users/B0313817/Desktop/kubernetes_practice/kubernetes-sample/postgres_service/initdb
             type: Directory
   selector:
     matchLabels:

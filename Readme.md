@@ -6,7 +6,7 @@
 * Execute the compose build command as deploying stack doesn't build image. Following command will pull images and build our custom images mentioned in the `docker-compose.yml` file
 	`docker compose build`
 
-* Go to folder `app-deployment-kubernetes/` and run 
+* Get current working directory path and go to folder `app-deployment-kubernetes/` and replace `<base_path>` with pwd and run 
 	`kubectl create -f .`
 
 * Check status of deploments, pods, replicasets and services, run
