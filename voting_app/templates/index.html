@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Voting App</title>
+</head>
+<body>
+  <h2>Select an Option</h2>
+  <form id="myForm" action="/" method="POST">
+    <label>
+      <input type="radio" name="choice" value="cat" {{ 'checked' if choice == 'cat' else '' }}> Cat
+    </label><br>
+    <label>
+      <input type="radio" name="choice" value="dog" {{ 'checked' if choice == 'dog' else '' }}> Dog
+    </label><br><br>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>
+<script>
+  document.getElementById('myForm').addEventListener('submit', function (e) {
+    const selected = document.querySelector('input[name="choice"]:checked');
+    if (!selected) {
+      alert("Please select an option before submitting.");
+      e.preventDefault();  // Prevent form submission
+    }
+  });
+</script>

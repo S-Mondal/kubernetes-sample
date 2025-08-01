@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: save-vote-d
+spec:
+  template:
+    metadata:
+      name: save-vote-app
+      labels:
+        name: save-vote-app
+
+    spec:
+      containers:
+        - name: save-vote-app
+          image: save_vote:v1
+  selector:
+    matchLabels:
+      name: save-vote-app

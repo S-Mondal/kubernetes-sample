@@ -1,0 +1,1 @@
+INSERT INTO vote (cat, dog) VALUES(0, 0);

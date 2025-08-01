@@ -1,0 +1,72 @@
+services:
+  postgres:
+    image: postgres
+    container_name: my_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: souvik
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_service/initdb:/docker-entrypoint-initdb.d
+    networks:
+      - my_network
+
+  redis:
+    image: redis
+    container_name: my_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - my_network
+
+  voting-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        directory: voting_app
+    image: voting_app:v1
+    ports:
+      - "5000:5000"
+    container_name: voting_app_con
+    networks:
+      - my_network
+    depends_on:
+      - redis
+
+  result-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        directory: result_app
+    image: result_app:v1
+    ports:
+      - "7000:5000"
+    container_name: result_app_con
+    networks:
+      - my_network
+    depends_on:
+      - postgres
+
+  save-vote:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        directory: save_vote
+    image: save_vote:v1
+    container_name: save_vote_con
+    networks:
+      - my_network
+    depends_on:
+      - redis
+      - postgres
+
+networks:
+  my_network:
+    name: my_network

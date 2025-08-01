@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-d
+spec:
+  template:
+    metadata:
+      name: result-app
+      labels:
+        name: result-app
+
+    spec:
+      containers:
+        - name: result-app
+          image: result_app:v1
+  replicas: 3
+  selector:
+    matchLabels:
+      name: result-app

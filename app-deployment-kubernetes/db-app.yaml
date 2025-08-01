@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-d
+spec:
+  template:
+    metadata:
+      name: db-app
+      labels:
+        name: db-app
+
+    spec:
+      containers:
+        - name: db-app
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              value: souvik
+            - name: POSTGRES_PASSWORD
+              value: test
+            - name: POSTGRES_DB
+              value: test
+          volumeMounts:
+            - name: postgres-init
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: postgres-init
+          hostPath:
+            path: ./postgres_service/initdb
+            type: Directory
+  selector:
+    matchLabels:
+      name: db-app
